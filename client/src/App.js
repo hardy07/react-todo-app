@@ -21,6 +21,14 @@ function App() {
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArray));
   };
 
+  const handleDeleteTodo = (index) => {
+    let reducedTodo = [...allTodos];
+    reducedTodo.splice(index);
+
+    localStorage.setItem("todolist", JSON.stringify(reducedTodo));
+    setTodos(reducedTodo);
+  };
+
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem("todolist"));
     if (savedTodo) {
@@ -93,8 +101,12 @@ function App() {
                     <p>{item.description}</p>
                   </div>
                   <div>
-                    <RiDeleteBin6Line className="icon" />
-                    <BsCheckLg className="check-icon" />
+                    <RiDeleteBin6Line
+                      className="icon"
+                      onClick={() => handleDeleteTodo(index)}
+                      title="Delete?"
+                    />
+                    <BsCheckLg className="check-icon" title="Complete?" />
                   </div>
                 </div>
               );
